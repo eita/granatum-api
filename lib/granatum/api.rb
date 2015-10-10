@@ -1,7 +1,8 @@
-require "granatum/api/version"
+require 'active_resource'
+require 'granatum/api/version'
 
 module Granatum
   module Api
-    # Your code goes here...
+    require 'api/base'
   end
 end
