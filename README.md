@@ -1,41 +1,53 @@
-# Granatum::Api
+# Ruby Gem para a API do Granatum
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/granatum/api`. To experiment with that code, run `bin/console` for an interactive prompt.
+Essa biblioteca é um conjunto de classes para acessar as informações do [Granatum](http://granatum.com.br) através da [API](http://www.granatum.com.br/financeiro/api/).
 
-TODO: Delete this and the text above, and describe your gem
+Todas as classes são herdadas do ActiveResouce::Base. Veja a documentação do [ActiveResouce](http://api.rubyonrails.org/classes/ActiveResource/Base.html) para mais informações.
 
-## Installation
+## Instalando
 
-Add this line to your application's Gemfile:
+    gem install granatum-api
+
+### Configurando seu token
 
 ```ruby
-gem 'granatum-api'
+require 'rubygems'
+require 'granatum-api'
+
+Granatum::Api::Base.access_token = ENV['granatum_token']
 ```
 
-And then execute:
+## Uso
 
-    $ bundle
+```ruby
+# criar uma categoria
+@category = Granatum::Api::Category.create({:description => 'Retirada de Lucro'})
 
-Or install it yourself as:
+# listar todos os lançamentos
+@transactions = Granatum::Api::Transaction.find(:all, params: { conta_id: 46839})
+@transactions.each do |transaction|
+  puts "ID: #{transaction.id}\n";
+  puts "Descricao: #{transaction.descricao}\n";
+  puts "Vencimento: #{transaction.data_vencimento}\n";
+  puts "Valor: #{transaction.valor}\n";
+  puts "=================================\n";
+end
+```
 
-    $ gem install granatum-api
+Veja um exemplo no arquivo [example.rb](https://github.com/eita/granatum-api/blob/master/examples/example.rb)
 
-## Usage
+## Licença
 
-TODO: Write usage instructions here
+Esse código é livre para ser usado dentro dos termos da licença [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
-## Development
+## Bugs, Issues, Agradecimentos, etc
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Comentários são bem-vindos. Envie seu feedback através do [issue tracker do GitHub](http://github.com/eita/granatum-api/issues)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Referência
 
-## Contributing
+Agradecimento especial para o [CobreGratis-Ruby](https://github.com/CobreGratis/cobregratis-ruby) que serviu como referência para este código.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/granatum-api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+## Autor
 
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+[**Sanderson Santana**](http://github.com/ssantana) trabalhando na [Eita](http://digaeita.com.br)
